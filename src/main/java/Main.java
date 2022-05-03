@@ -1,5 +1,7 @@
+import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
@@ -10,6 +12,13 @@ public class Main {
     final AtomicInteger hits = new AtomicInteger();
     final ThreadLocal<Object> threadLocal = new ThreadLocal<>();
     final Object ref = new Object();
+
+    final ArrayList<ForkJoinTask<String>> objects = new ArrayList<>();
+    for (int i = 0; i < 10; i++) {
+      final ForkJoinTask<String> submit = ForkJoinPool.commonPool().submit(() -> Thread.currentThread().getId() + "");
+      objects.add(submit);
+    }
+    objects.forEach(task -> System.out.println(task.join()));
     for (int i = 0; i < NUM_RUNS; i++) {
       ForkJoinPool.commonPool().execute(() -> {
         final Object value = threadLocal.get();

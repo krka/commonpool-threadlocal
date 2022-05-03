@@ -79,6 +79,5 @@ This is probably not a good idea, since it would directly counteract the securit
 Instead, it is probably better to operate on a case by case basis and fix the affected libraries.
 Exactly how to do that is probably best done as a community collaborative exercise.
 
-I have added some ideas to this repository:
+I have added one idea on how to solve it:
 * [ThreadLocalWithFallback](src/main/java/ThreadLocalWithFallback.java)
-* [ConcurrentThreadLocalWithFallback](src/main/java/ConcurrentThreadLocalWithFallback.java)
